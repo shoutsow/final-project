@@ -67,4 +67,5 @@ Route::group(['prefix' => 'admin'], function() {
     Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 });
 
-
+Route::post('/basket/saveorder', [BasketController::class, 'saveorder'])->name('basket.saveorder');
+Route::get('/basket/success', [BasketController::class, 'success'])->name('basket.success');
