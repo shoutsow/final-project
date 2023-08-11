@@ -48,17 +48,23 @@ Route::post('/basket/clear', [BasketController::class, 'clear'])->name('basket.c
 //});
 
 Route::group(['prefix' => 'user'], function() {
-    Route::get('index', [UserController::class, 'index'])->name('index');
+    Route::get('index', [UserController::class, 'index'])->name('user.index');
     Auth::routes();
 });
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
-Route::group([
-    'as' => 'admin.', // имя маршрута, например admin.index
-    'prefix' => 'admin', // префикс маршрута, например admin/index
-    'namespace' => 'Admin', // пространство имен контроллера
-    'middleware' => ['auth', 'admin'] // один или несколько посредников
-], function () {
-    Route::get('index', [IndexController::class, 'index'])->name('index');
+//Route::group([
+//    'as' => 'admin.', // имя маршрута, например admin.index
+//    'prefix' => 'admin', // префикс маршрута, например admin/index
+//    'namespace' => 'Admin', // пространство имен контроллера
+//    'middleware' => ['auth', 'admin'] // один или несколько посредников
+//], function () {
+//    Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('index');
+//});
+
+Route::group(['prefix' => 'admin'], function() {
+    Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 });
+
+
