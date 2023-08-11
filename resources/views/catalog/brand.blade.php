@@ -5,7 +5,7 @@
     <p>{{ $brand->content }}</p>
     <div class="row">
         @foreach ($brand->products as $product)
-            @include('part.product')
+            @include('layout.part.product')
         @endforeach
     </div>
 @endsection
