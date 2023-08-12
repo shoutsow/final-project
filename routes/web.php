@@ -1,10 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +18,8 @@ use App\Http\Controllers\UserController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::get('/', IndexController::class)->name('index');
 
@@ -43,29 +47,27 @@ Route::post('/basket/remove/{id}', [BasketController::class, 'remove'])
     ->name('basket.remove');
 Route::post('/basket/clear', [BasketController::class, 'clear'])->name('basket.clear');
 
-//Route::name('user.')->prefix('user')->group(function () {
-//    Auth::routes();
-//});
-
 Route::group(['prefix' => 'user'], function() {
     Route::get('index', [UserController::class, 'index'])->name('user.index');
     Auth::routes();
 });
 
-//Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
-//Route::group([
-//    'as' => 'admin.', // имя маршрута, например admin.index
-//    'prefix' => 'admin', // префикс маршрута, например admin/index
-//    'namespace' => 'Admin', // пространство имен контроллера
-//    'middleware' => ['auth', 'admin'] // один или несколько посредников
-//], function () {
-//    Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('index');
+//Route::group(['prefix' => 'admin'], function() {
+//    Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
 //});
 
-Route::group(['prefix' => 'admin'], function() {
-    Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('admin.index');
+Route::group([
+    'as' => 'admin.', // имя маршрута, например admin.index
+    'prefix' => 'admin', // префикс маршрута, например admin/index
+    'namespace' => 'App\Http\Controllers\Admin', // пространство имен контроллера
+    'middleware' => ['auth', 'admin'] // один или несколько посредников
+], function () {
+    // главная страница панели управления
+    Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('index');
+    // CRUD-операции над категориями каталога
+    Route::resource('category', CategoryController::class);
 });
 
 Route::post('/basket/saveorder', [BasketController::class, 'saveorder'])->name('basket.saveorder');
 Route::get('/basket/success', [BasketController::class, 'success'])->name('basket.success');
+
