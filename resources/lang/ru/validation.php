@@ -128,9 +128,42 @@ return [
     'uploaded'             => 'Загрузка поля :attribute не удалась.',
     'url'                  => 'Значение поля :attribute имеет ошибочный формат URL.',
     'uuid'                 => 'Значение поля :attribute должно быть корректным UUID.',
-    'custom'               => [
+
+    'custom' => [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'name' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'email' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'phone' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'address' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+        'slug' => [
+            'required' => 'Поле «:attribute» обязательно для заполнения',
+            'unique' => 'Поле «:attribute» должно быть уникальным значением',
+            'regex' => 'Поле «:attribute» допускает только буквы, цифры, «-» и «_»',
+            'max' => 'Поле «:attribute» должно быть не больше :max символов',
+        ],
+    ],
+
+    'attributes' => [
+        'name'                  => 'Имя, Фамилия',
+        'slug'                  => 'ЧПУ (англ)',
+        'email'                 => 'Адрес почты',
+        'password'              => 'Пароль',
+        'password_confirmation' => 'Подтверждение пароля',
+        'address'               => 'Адрес доставки',
+        'phone'                 => 'Номер телефона',
     ],
 ];
