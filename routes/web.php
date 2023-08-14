@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\OrderController;
+use App\Http\Controllers\Admin\PageController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\IndexController;
@@ -80,6 +81,12 @@ Route::group([
     Route::resource('order', OrderController::class, ['except' => [
         'create', 'store', 'destroy'
     ]]);
+    // просмотр и редактирование пользователей
+    Route::resource('user', UserController::class, ['except' => [
+        'create', 'store', 'show', 'destroy'
+    ]]);
+    // CRUD-операции над страницами сайта
+    Route::resource('page', PageController::class);
 });
 
 Route::post('/basket/saveorder', [BasketController::class, 'saveorder'])->name('basket.saveorder');
