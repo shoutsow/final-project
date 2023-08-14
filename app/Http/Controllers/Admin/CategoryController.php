@@ -22,8 +22,8 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $roots = Category::roots();
-        return view('admin.category.index', compact('roots'));
+        $items = Category::all();
+        return view('admin.category.index', compact('items'));
     }
 
     /**
@@ -31,9 +31,9 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        // для возможности выбора родителя
-        $parents = Category::roots();
-        return view('admin.category.create', compact('parents'));
+        // все категории для возможности выбора родителя
+        $items = Category::all();
+        return view('admin.category.create', compact('items'));
     }
 
     /**
@@ -61,9 +61,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        // для возможности выбора родителя
-        $parents = Category::roots();
-        return view('admin.category.edit', compact('category', 'parents'));
+        // все категории для возможности выбора родителя
+        $items = Category::all();
+        return view('admin.category.edit', compact('category', 'items'));
     }
 
     /**

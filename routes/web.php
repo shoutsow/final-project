@@ -7,6 +7,7 @@ use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\IndexController;
 use App\Http\Controllers\BasketController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Admin\ProductController;
 
 
 /*
@@ -69,6 +70,11 @@ Route::group([
     Route::resource('category', CategoryController::class);
     // CRUD-операции над брендами каталога
     Route::resource('brand', BrandController::class);
+    // CRUD-операции над товарами каталога
+    Route::resource('product', ProductController::class);
+    // доп.маршрут для просмотра товаров категории
+    Route::get('product/category/{category}', [ProductController::class, 'category'])
+        ->name('product.category');
 });
 
 Route::post('/basket/saveorder', [BasketController::class, 'saveorder'])->name('basket.saveorder');

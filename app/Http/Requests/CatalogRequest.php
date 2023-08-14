@@ -5,25 +5,74 @@ namespace App\Http\Requests;
 use App\Rules\CategoryParent;
 use Illuminate\Foundation\Http\FormRequest;
 
-class CatalogRequest extends FormRequest
-{
+abstract class CatalogRequest extends FormRequest {
+
     /**
-     * Determine if the user is authorized to make this request.
+     * С какой сущностью сейчас работаем: категория, бренд, товар
+     * @var array
      */
-    public function authorize(): bool
-    {
-        return false;
+    protected $entity = [];
+
+    public function authorize() {
+        return true;
+    }
+
+    public function rules() {
+        switch ($this->method()) {
+            case 'POST':
+                return $this->createItem();
+            case 'PUT':
+            case 'PATCH':
+                return $this->updateItem();
+        }
     }
 
     /**
-     * Get the validation rules that apply to the request.
-     *
-     * @return array<string, \Illuminate\Contracts\Validation\ValidationRule|array|string>
+     * Задает дефолтные правила для проверки данных при добавлении
+     * категории, бренда или товара
      */
-    public function rules(): array
-    {
+    protected function createItem() {
         return [
-            //
+            'name' => [
+                'required',
+                'max:100',
+            ],
+            'slug' => [
+                'required',
+                'max:100',
+                'unique:'.$this->entity['table'].',slug',
+                'regex:~^[-_a-z0-9]+$~i',
+            ],
+            'image' => [
+                'mimes:jpeg,jpg,png',
+                'max:5000'
+            ],
+        ];
+    }
+
+    /**
+     * Задает дефолтные правила для проверки данных при обновлении
+     * категории, бренда или товара
+     */
+    protected function updateItem() {
+        // получаем объект модели из маршрута: admin/entity/{entity}
+        $model = $this->route($this->entity['name']);
+        return [
+            'name' => [
+                'required',
+                'max:100',
+            ],
+            'slug' => [
+                'required',
+                'max:100',
+                // проверка на уникальность slug, исключая эту сущность по идентифкатору
+                'unique:'.$this->entity['table'].',slug,'.$model->id.',id',
+                'regex:~^[-_a-z0-9]+$~i',
+            ],
+            'image' => [
+                'mimes:jpeg,jpg,png',
+                'max:5000'
+            ],
         ];
     }
 }

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use App\Helpers\ImageSaver;
+use App\Http\Requests\BrandCatalogRequest;
 
 class BrandController extends Controller
 {
@@ -35,7 +36,7 @@ class BrandController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(BrandCatalogRequest $request)
     {
         $data = $request->all();
         $data['image'] = $this->imageSaver->upload($request, null, 'brand');
@@ -64,7 +65,7 @@ class BrandController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Brand $brand)
+    public function update(BrandCatalogRequest $request, Brand $brand)
     {
         $data = $request->all();
         $data['image'] = $this->imageSaver->upload($request, $brand, 'brand');
