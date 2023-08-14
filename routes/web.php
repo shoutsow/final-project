@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController;
@@ -66,6 +67,8 @@ Route::group([
     Route::get('index', App\Http\Controllers\Admin\IndexController::class)->name('index');
     // CRUD-операции над категориями каталога
     Route::resource('category', CategoryController::class);
+    // CRUD-операции над брендами каталога
+    Route::resource('brand', BrandController::class);
 });
 
 Route::post('/basket/saveorder', [BasketController::class, 'saveorder'])->name('basket.saveorder');
