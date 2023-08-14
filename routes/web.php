@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\OrderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CatalogController;
 use App\Http\Controllers\IndexController;
@@ -75,6 +76,10 @@ Route::group([
     // доп.маршрут для просмотра товаров категории
     Route::get('product/category/{category}', [ProductController::class, 'category'])
         ->name('product.category');
+    // просмотр и редактирование заказов
+    Route::resource('order', OrderController::class, ['except' => [
+        'create', 'store', 'destroy'
+    ]]);
 });
 
 Route::post('/basket/saveorder', [BasketController::class, 'saveorder'])->name('basket.saveorder');
