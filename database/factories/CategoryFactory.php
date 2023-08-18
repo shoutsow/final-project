@@ -1,27 +1,16 @@
 <?php
 
-namespace Database\Factories;
+/** @var \Illuminate\Database\Eloquent\Factory $factory */
 
-use Illuminate\Database\Eloquent\Factories\Factory;
+use App\Category;
+use Faker\Generator as Faker;
 use Illuminate\Support\Str;
 
-/**
- * @extends \Illuminate\Database\Eloquent\Factories\Factory<\App\Models\Category>
- */
-class CategoryFactory extends Factory
-{
-    /**
-     * Define the model's default state.
-     *
-     * @return array<string, mixed>
-     */
-    public function definition(): array
-    {
-        $name = fake()->realText(rand(30, 40));
-        return [
-            'name' => $name,
-            'content' => fake()->realText(rand(150, 200)),
-            'slug' => Str::slug($name),
-        ];
-    }
-}
+$factory->define(Category::class, function (Faker $faker) {
+    $name = $faker->realText(rand(30, 40));
+    return [
+        'name' => $name,
+        'content' => $faker->realText(rand(150, 200)),
+        'slug' => Str::slug($name),
+    ];
+});

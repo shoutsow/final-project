@@ -2,13 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Brand;
-use App\Models\Category;
-use App\Models\Product;
+use App\Brand;
+use App\Category;
+use App\Product;
 use Illuminate\Http\Request;
 
-class CatalogController extends Controller
-{
+class CatalogController extends Controller {
     public function index() {
         $roots = Category::where('parent_id', 0)->get();
         return view('catalog.index', compact('roots'));
