@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Brand;
-use App\Category;
-use App\Product;
-use Illuminate\Http\Request;
+use App\Models\Brand;
+use App\Models\Category;
+use App\Models\Product;
 
 class CatalogController extends Controller {
     public function index() {
