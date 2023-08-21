@@ -17,7 +17,7 @@
                             <p>Цена: {{ number_format($product->price, 2, '.', '') }}</p>
                             <!-- Форма для добавления товара в корзину -->
                             <form action="{{ route('basket.add', ['id' => $product->id]) }}"
-                                  method="post" class="form-inline">
+                                  method="post" class="form-inline add-to-basket">
                                 @csrf
                                 <label for="input-quantity">Количество</label>
                                 <input type="text" name="quantity" id="input-quantity" value="1"
@@ -37,7 +37,7 @@
                         <div class="col-md-6">
                             @isset($product->category)
                                 Категория:
-                                <a href="{{ route('catalog.category', ['slug' => $product->category->slug]) }}">
+                                <a href="{{ route('catalog.category', ['category' => $product->category->slug]) }}">
                                     {{ $product->category->name }}
                                 </a>
                             @endisset
@@ -45,7 +45,7 @@
                         <div class="col-md-6 text-right">
                             @isset($product->brand)
                                 Бренд:
-                                <a href="{{ route('catalog.brand', ['slug' => $product->brand->slug]) }}">
+                                <a href="{{ route('catalog.brand', ['brand' => $product->brand->slug]) }}">
                                     {{ $product->brand->name }}
                                 </a>
                             @endisset

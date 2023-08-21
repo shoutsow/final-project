@@ -49,8 +49,9 @@
 
             <!-- Этот блок расположен справа -->
             <ul class="navbar-nav ml-auto">
-                <li class="nav-item">
-                    <a class="nav-link @if ($positions) text-success @endif" href="{{ route('basket.index') }}">
+                <li class="nav-item" id="top-basket">
+                    <a class="nav-link @if ($positions) text-success @endif"
+                       href="{{ route('basket.index') }}">
                         Корзина
                         @if ($positions) ({{ $positions }}) @endif
                     </a>

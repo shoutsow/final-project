@@ -41,15 +41,23 @@ class BasketController extends Controller
         }
         return view('basket.checkout', compact('profiles', 'profile'));
     }
+
     /**
      * Добавляет товар с идентификатором $id в корзину
      */
     public function add(Request $request, $id) {
         $quantity = $request->input('quantity') ?? 1;
         $this->basket->increase($id, $quantity);
-        // выполняем редирект обратно на ту страницу,
-        // где была нажата кнопка «В корзину»
-        return back();
+        if ( ! $request->ajax()) {
+            // выполняем редирект обратно на ту страницу,
+            // где была нажата кнопка «В корзину»
+            return back();
+        }
+        // в случае ajax-запроса возвращаем html-код корзины в правом
+        // верхнем углу, чтобы заменить исходный html-код, потому что
+        // теперь количество позиций будет другим
+        $positions = $this->basket->products->count();
+        return view('basket.part.basket', compact('positions'));
     }
 
     /**
