@@ -79,3 +79,5 @@ Route::group([
     Route::delete('page/remove/image', 'PageController@removeImage')
         ->name('page.remove.image');
 });
+
+Route::get('/page/{page:slug}', 'PageController')->name('page.show');
