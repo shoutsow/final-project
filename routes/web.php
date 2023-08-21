@@ -39,10 +39,23 @@ Route::post('/basket/clear', 'BasketController@clear')->name('basket.clear');
 Route::post('/basket/saveorder', 'BasketController@saveOrder')->name('basket.saveorder');
 Route::get('/basket/success', 'BasketController@success')
     ->name('basket.success');
+Route::post('/basket/profile', 'BasketController@profile')
+    ->name('basket.profile');
 
 Route::name('user.')->prefix('user')->group(function () {
-    Route::get('index', 'UserController@index')->name('index');
+    // регистрация, вход в ЛК, восстановление пароля
     Auth::routes();
+});
+
+Route::group([
+    'as' => 'user.', // имя маршрута, например user.index
+    'prefix' => 'user', // префикс маршрута, например user/index
+    'middleware' => ['auth'] // один или несколько посредников
+], function () {
+    // главная страница личного кабинета пользователя
+    Route::get('index', 'UserController@index')->name('index');
+    // CRUD-операции над профилями пользователя
+    Route::resource('profile', 'ProfileController');
 });
 
 Route::group([
