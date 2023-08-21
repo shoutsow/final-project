@@ -6,6 +6,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    protected $fillable = [
+        'category_id',
+        'brand_id',
+        'name',
+        'slug',
+        'content',
+        'image',
+        'price',
+        'new',
+        'hit',
+        'sale',
+    ];
+
     /**
      * Связь «товар принадлежит» таблицы `products` с таблицей `categories`
      */

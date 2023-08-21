@@ -60,6 +60,11 @@ class ProductController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(ProductCatalogRequest $request) {
+        $request->merge([
+            'new' => $request->has('new'),
+            'hit' => $request->has('hit'),
+            'sale' => $request->has('sale'),
+        ]);
         $data = $request->all();
         $data['image'] = $this->imageSaver->upload($request, null, 'product');
         $product = Product::create($data);
@@ -93,13 +98,18 @@ class ProductController extends Controller {
     }
 
     /**
-     * Обновляет товар каталога в базе данных
+     * Обновляет товар каталога
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Product  $product
      * @return \Illuminate\Http\Response
      */
-    public function update(ProductCatalogRequest $request, Brand $brand) {
+    public function update(ProductCatalogRequest $request, Product $product) {
+        $request->merge([
+            'new' => $request->has('new'),
+            'hit' => $request->has('hit'),
+            'sale' => $request->has('sale'),
+        ]);
         $data = $request->all();
         $data['image'] = $this->imageSaver->upload($request, $product, 'product');
         $product->update($data);
