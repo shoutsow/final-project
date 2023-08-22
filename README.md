@@ -9,4 +9,7 @@
 
 ~~Позже добавлю архив с дампом БД и папкой storage.~~ добавил (_storage-db-env.rar)
 
-
+Что нужно чтобы завелось:
+composer install
+npm install && npm run dev
+php artisan storage:link
