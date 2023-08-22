@@ -7,9 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ $title ?? 'Интернет-магазин' }}</title>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
-          integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.10.0/css/all.css"
+          integrity="sha384-AYmEC3Yw5cVb3ZcuHtOA93w35dYTsvhLPVnYs9eStHfGJvOvKxVfELGroGkvsg+p"
+          crossorigin="anonymous"/>
+    <link rel="stylesheet" href="{{ asset('css/site.css') }}">
     <script src="{{ asset('js/app.js') }}"></script>
     <script src="{{ asset('js/site.js') }}"></script>
 </head>
@@ -19,24 +21,18 @@
         <!-- Бренд и кнопка «Гамбургер» -->
         <a class="navbar-brand" href="{{ route('index') }}">Магазин</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse"
-                data-target="#navbar-example" aria-controls="navbar-larashop"
+                data-target="#navbar-example" aria-controls="navbar-example"
                 aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
         <!-- Основная часть меню (может содержать ссылки, формы и прочее) -->
-        <div class="collapse navbar-collapse" id="navbar-larashop">
+        <div class="collapse navbar-collapse" id="navbar-example">
             <!-- Этот блок расположен слева -->
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item">
                     <a class="nav-link" href="{{ route('catalog.index') }}">Каталог</a>
                 </li>
                 @include('layout.part.pages')
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Доставка</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Контакты</a>
-                </li>
             </ul>
 
             <!-- Этот блок расположен посередине -->
@@ -90,7 +86,7 @@
             @endif
 
             @if ($errors->any())
-                <div class="alert alert-danger alert-dismissible mt-0" role="alert">
+                <div class="alert alert-danger alert-dismissible mt-4" role="alert">
                     <button type="button" class="close" data-dismiss="alert" aria-label="Закрыть">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -105,6 +101,12 @@
             @yield('content')
         </div>
     </div>
+    <footer class="bg-dark py-3 my-4">
+        <ul class="nav justify-content-center border-bottom pb-3 mb-3">
+            <li class="nav-item"><a href="#" class="nav-link px-2 text-body-secondary">Учебный интернет-магазин</a></li>
+        </ul>
+        <p class="text-center text-white-50 text-body-secondary">© 2023 shoutsow</p>
+    </footer>
 </div>
 <script src="https://kit.fontawesome.com/7a89f39588.js" crossorigin="anonymous"></script>
 </body>

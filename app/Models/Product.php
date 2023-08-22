@@ -41,4 +41,28 @@ class Product extends Model
     public function baskets() {
         return $this->belongsToMany(Basket::class)->withPivot('quantity');
     }
+
+    /**
+     * Позволяет выбирать товары категории и всех ее потомков
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param integer $id
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeCategoryProducts($builder, $id) {
+        $descendants = Category::getAllChildren($id);
+        $descendants[] = $id;
+        return $builder->whereIn('category_id', $descendants);
+    }
+
+    /**
+     * Позволяет фильтровать товары по нескольким условиям
+     *
+     * @param \Illuminate\Database\Eloquent\Builder $builder
+     * @param \App\Helpers\ProductFilter $filters
+     * @return \Illuminate\Database\Eloquent\Builder
+     */
+    public function scopeFilterProducts($builder, $filters) {
+        return $filters->apply($builder);
+    }
 }

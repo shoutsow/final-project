@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Helpers\ProductFilter;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
@@ -16,17 +17,20 @@ class CatalogController extends Controller {
         return view('catalog.index', compact('roots', 'brands'));
     }
 
-    public function category(Category $category) {
-        // получаем всех потомков этой категории
-        $descendants = $category->getAllChildren($category->id);
-        $descendants[] = $category->id;
-        // товары этой категории и всех потомков
-        $products = Product::whereIn('category_id', $descendants)->paginate(6);
+    public function category(Category $category, ProductFilter $filters) {
+        $products = Product::categoryProducts($category->id) // товары категории и всех ее потомков
+        ->filterProducts($filters) // фильтруем товары категории и всех ее потомков
+        ->paginate(6)
+            ->withQueryString();
         return view('catalog.category', compact('category', 'products'));
     }
 
-    public function brand(Brand $brand) {
-        $products = $brand->products()->paginate(6);
+    public function brand(Brand $brand, ProductFilter $filters) {
+        $products = $brand
+            ->products() // возвращает построитель запроса
+            ->filterProducts($filters)
+            ->paginate(6)
+            ->withQueryString();
         return view('catalog.brand', compact('brand', 'products'));
     }
 
