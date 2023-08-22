@@ -37,4 +37,11 @@ class CatalogController extends Controller {
     public function product(Product $product) {
         return view('catalog.product', compact('product'));
     }
+
+    public function search(Request $request) {
+        $search = $request->input('query');
+        $query = Product::search($search);
+        $products = $query->paginate(6)->withQueryString();
+        return view('catalog.search', compact('products', 'search'));
+    }
 }

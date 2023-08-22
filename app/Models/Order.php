@@ -52,4 +52,13 @@ class Order extends Model
     public function getUpdatedAtAttribute($value) {
         return Carbon::createFromFormat('Y-m-d H:i:s', $value)->timezone('Europe/Minsk');
     }
+
+    /**
+     * Связь «заказ принадлежит» таблицы `orders` с таблицей `users`
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user() {
+        return $this->belongsTo(User::class);
+    }
 }

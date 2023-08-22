@@ -18,7 +18,11 @@
                 <td>{{ $user->created_at->format('d.m.Y H:i') }}</td>
                 <td>{{ $user->name }}</td>
                 <td><a href="mailto:{{ $user->email }}">{{ $user->email }}</a></td>
-{{--                <td>{{ $user->orders->count() }}</td>  какая-то непонятная шляпа с этим каунтом--}}
+                <td>
+                    @isset($user->orders)
+                        {{ $user->orders->count() }}
+                    @endisset
+                </td>
                 <td>
                     <a href="{{ route('admin.user.edit', ['user' => $user->id]) }}">
                         <i class="far fa-edit"></i>
